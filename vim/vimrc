@@ -1,0 +1,422 @@
+let g:SESSION_DIR = $HOME.'/.cache/vim/sessions'
+" ============================================================
+" Vundle
+" ============================================================
+set nocompatible
+
+" Setting up Vundle - the vim plugin bundler
+" Credit:  http://www.erikzaadi.com/2012/03/19/auto-installing-vundle-from-your-vimrc/
+let iCanHazVundle=1
+let neobundle_readme=expand('~/.vim/bundle/neobundle.vim/README.md')
+if !filereadable(neobundle_readme)
+    echo "Installing neobundle.vim."
+    echo ""
+    silent !mkdir -p ~/.vim/bundle
+    silent !git clone https://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
+    let iCanHazVundle=0
+endif
+
+set rtp+=~/.vim/bundle/neobundle.vim/
+call neobundle#rc(expand('~/.vim/bundle/'))
+
+" Let NeoBundle manage NeoBundle
+NeoBundleFetch 'Shougo/neobundle.vim'
+
+" Recommended to install
+" After install, turn shell ~/.vim/bundle/vimproc, (n,g)make -f your_machines_makefile
+NeoBundle 'Shougo/vimproc', { 'build': {
+            \   'windows': 'make -f make_mingw32.mak',
+            \   'cygwin': 'make -f make_cygwin.mak',
+            \   'mac': 'make -f make_mac.mak',
+            \   'unix': 'make -f make_unix.mak',
+            \ } }
+
+" Colorscheme
+NeoBundle 'flazz/vim-colorschemes'
+
+" Session
+NeoBundle 'mhinz/vim-startify'
+NeoBundle 't9md/vim-quickhl'
+NeoBundle 'Shougo/vimshell.vim'
+NeoBundle 'vim-scripts/cmdline-completion'
+
+" Fuzzy Search
+NeoBundle 'Shougo/unite.vim'
+NeoBundle 'Shougo/neomru.vim'
+NeoBundle 'Shougo/unite-outline'
+NeoBundle 'Shougo/unite-help'
+NeoBundle 'Shougo/unite-session'
+NeoBundle 'thinca/vim-unite-history'
+
+" Powerline
+NeoBundle 'bling/vim-airline'
+NeoBundle 'bling/vim-bufferline'
+
+" Complete
+NeoBundle 'Shougo/neocomplete.vim'
+NeoBundle 'ervandew/supertab'
+NeoBundle 'Raimondi/delimitMate'
+
+" Projects
+NeoBundle 'scrooloose/nerdtree'
+NeoBundle 'majutsushi/tagbar'
+
+" Setting up Vundle - the vim plugin bundler end
+if iCanHazVundle == 0
+    echo "Installing Bundles, please ignore key map error messages"
+    echo ""
+    :NeoBundleInstall
+endif
+
+" Installation check.
+NeoBundleCheck
+
+" ============================================================
+" General Settings
+" ============================================================
+filetype plugin indent on
+syntax enable
+
+" Writes to the unnamed register also writes to the * and + registers. This
+" makes it easy to interact with the system clipboard
+if has ('unnamedplus')
+    set clipboard=unnamedplus
+else
+    set clipboard=unnamed
+endif
+
+" Use a low updatetime.
+set updatetime=1000
+
+" This took a while to figure out. Neocomplcache + iTerm + the CursorShape
+" fix is causing the completion menu popup to flash the first result. Tested it
+" with AutoComplPop and the behavior doesn't exist, so it's isolated to
+" Neocomplcache... :( Dug into the source for both and saw that AutoComplPop is
+" setting lazyredraw to be on during automatic popup...
+set lazyredraw
+
+" Solid line for vsplit separator
+set fcs=vert:│
+
+" Turn on the mouse, since it doesn't play well with tmux anyway. This way I can
+" scroll in the terminal
+set mouse=a
+
+" Give one virtual space at end of line
+set virtualedit=onemore
+
+" Turn on line number
+set number
+
+" Always splits to the right and below
+set splitright
+set splitbelow
+
+" Sets how many lines of history vim has to remember
+set history=10000
+
+" Set to auto read when a file is changed from the outside
+set autoread
+
+" Set to auto write file
+set autowriteall
+
+" Display unprintable chars
+set list
+set listchars=tab:▸\ ,extends:❯,precedes:❮,nbsp:␣
+set showbreak=↪
+
+
+" Minimal number of screen lines to keep above and below the cursor
+set scrolloff=10
+
+" Min width of the number column to the left
+set numberwidth=1
+
+" Open all folds initially
+set foldmethod=indent
+set foldlevelstart=99
+
+" No need to show mode due to Powerline
+set noshowmode
+
+set wildmode=list:longest,full
+set wildmenu "turn on wild menu
+" set wildignore
+" See ignore.vim
+
+"netrw.vim"{{{
+" Change default directory.
+set browsedir=current
+"}}}
+
+" Allow changing buffer without saving it first
+set hidden
+
+" Set backspace config
+set backspace=eol,start,indent
+
+" Case insensitive search
+set ignorecase
+set smartcase
+
+" Set sensible heights for splits
+" set winheight=50
+" Setting this causes problems with Unite-outline. Don't really need it
+" set winminheight=5
+
+" Make search act like search in modern browsers
+set incsearch
+
+" Make regex a little easier to type
+set magic
+
+" Don't show matching brackets
+set noshowmatch
+
+" Show incomplete commands
+set showcmd
+
+" Turn off sound
+set vb
+set t_vb=
+
+" Always show the statusline
+set laststatus=2
+
+" Explicitly set encoding to utf-8
+set encoding=utf-8
+
+" Column width indicator
+" set colorcolumn=+1
+
+" Lower the delay of escaping out of other modes
+set timeout timeoutlen=1000 ttimeoutlen=0
+
+" Fix meta-keys which generate <Esc>A .. <Esc>z
+if !has('gui_running')
+    " let c='a'
+    " while c <= 'z'
+    " exec "set <M-".c.">=\e".c
+    " exec "imap \e".c." <M-".c.">"
+    " let c = nr2char(1+char2nr(c))
+    " endw
+    " Map these two on its own to enable Alt-Shift-J and Alt-Shift-K. If I map the
+    " whole spectrum of A-Z, it screws up mouse scrolling somehow. Mouse events
+    " must be interpreted as some form of escape sequence that interferes.
+    " exec 'set <M-J>=J'
+    " exec 'set <M-K>=K'
+endif
+
+if has("gui_macvim")
+    set transp=1
+    set guifont=Source\ Code\ Pro\ for\ Powerline:h15
+    set go=
+    let macvim_skip_cmd_opt_movement = 1
+    let macvim_hig_shift_movement = 1
+endif
+
+try
+    lang en_us
+catch
+endtry
+
+" Turn backup off
+set nobackup
+set nowritebackup
+set noswapfile
+
+" Tab settings
+set expandtab
+set shiftwidth=4
+set tabstop=8
+set softtabstop=4
+set smarttab
+
+" Text display settings
+set linebreak
+" set textwidth=80
+set autoindent
+set nowrap
+set whichwrap+=h,l,<,>,[,]
+set relativenumber
+set number
+
+" enables the reading of .vimrc, .exrc and .gvimrc in the current directory.
+set exrc
+
+" Use vimgrep.
+"set grepprg=internal
+"" Use grep.
+set grepprg=grep\ -inH
+
+" ============================================================
+" Plugins
+" ============================================================
+
+" Startify {{{
+" A fancy start screen for Vim.
+let g:startify_session_dir = g:SESSION_DIR
+let g:startify_change_to_vcs_root = 1
+let g:startify_list_order = [
+            \ ['   Last recently opened files:'],
+            \ 'files',
+            \ ['   My sessions:'],
+            \ 'sessions',
+            \ ]
+" let g:startify_change_to_dir = 0
+let g:startify_custom_header = [
+            \ '           ______________________________________           ',
+            \ '  ________|                                      |_______   ',
+            \ '  \       |         VIM ' . v:version . ' - www.vim.org        |      /   ',
+            \ '   \      |                                      |     /    ',
+            \ '   /      |______________________________________|     \    ',
+            \ '  /__________)                                (_________\   ',
+            \ '']
+" }}}
+
+" Tagbar {{{
+let g:tagbar_width = 30
+let g:tagbar_foldlevel = 1
+let g:tagbar_type_rst = {
+            \ 'ctagstype': 'rst',
+            \ 'kinds': [ 'r:references', 'h:headers' ],
+            \ 'sort': 0,
+            \ 'sro': '..',
+            \ 'kind2scope': { 'h': 'header' },
+            \ 'scope2kind': { 'header': 'h' }
+            \ }
+" }}}
+
+" Quickhl {{{
+let g:quickhl_colors = [
+      \ "gui=bold ctermfg=255 ctermbg=153 guifg=#ffffff guibg=#0a7383",
+      \ "gui=bold guibg=#a07040 guifg=#ffffff",
+      \ "gui=bold guibg=#4070a0 guifg=#ffffff",
+      \ ]
+" }}}
+
+" Neocomplete {{{
+"Note: This option must set it in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
+" Disable AutoComplPop.
+let g:acp_enableAtStartup = 0
+" Use neocomplete.
+let g:neocomplete#enable_at_startup = 1
+" Use smartcase.
+let g:neocomplete#enable_smart_case = 1
+" Set minimum syntax keyword length.
+let g:neocomplete#sources#syntax#min_keyword_length = 3
+let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
+
+" Define dictionary.
+let g:neocomplete#sources#dictionary#dictionaries = {
+    \ 'default' : '',
+    \ 'vimshell' : $HOME.'/.vimshell_hist',
+    \ 'scheme' : $HOME.'/.gosh_completions'
+        \ }
+
+" Define keyword.
+if !exists('g:neocomplete#keyword_patterns')
+    let g:neocomplete#keyword_patterns = {}
+endif
+let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+
+" Plugin key-mappings.
+inoremap <expr><C-g>     neocomplete#undo_completion()
+inoremap <expr><C-l>     neocomplete#complete_common_string()
+
+" Recommended key-mappings.
+" <CR>: close popup and save indent.
+inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+function! s:my_cr_function()
+  return neocomplete#close_popup() . "\<CR>"
+  " For no inserting <CR> key.
+  "return pumvisible() ? neocomplete#close_popup() : "\<CR>"
+endfunction
+" <TAB>: completion.
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+" <C-h>, <BS>: close popup and delete backword char.
+inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+inoremap <expr><C-y>  neocomplete#close_popup()
+inoremap <expr><C-e>  neocomplete#cancel_popup()
+" Close popup by <Space>.
+"inoremap <expr><Space> pumvisible() ? neocomplete#close_popup() : "\<Space>"
+
+" For cursor moving in insert mode(Not recommended)
+"inoremap <expr><Left>  neocomplete#close_popup() . "\<Left>"
+"inoremap <expr><Right> neocomplete#close_popup() . "\<Right>"
+"inoremap <expr><Up>    neocomplete#close_popup() . "\<Up>"
+"inoremap <expr><Down>  neocomplete#close_popup() . "\<Down>"
+" Or set this.
+"let g:neocomplete#enable_cursor_hold_i = 1
+" Or set this.
+"let g:neocomplete#enable_insert_char_pre = 1
+
+" AutoComplPop like behavior.
+"let g:neocomplete#enable_auto_select = 1
+
+" Shell like behavior(not recommended).
+"set completeopt+=longest
+"let g:neocomplete#enable_auto_select = 1
+"let g:neocomplete#disable_auto_complete = 1
+"inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
+
+" Enable omni completion.
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
+
+" Enable heavy omni completion.
+if !exists('g:neocomplcache_omni_patterns')
+  let g:neocomplcache_omni_patterns = {}
+endif
+let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
+let g:neocomplcache_omni_patterns.c = '\%(\.\|->\)\h\w*'
+" }}}
+
+"===============================================================================
+" Color
+"===============================================================================
+"autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=red   ctermbg=3
+"autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=green ctermbg=4
+let indent_guides_enable_on_vim_startup = 0
+let indent_guides_auto_colors = 0
+
+hi IndentGuidesOdd  ctermbg=black
+hi IndentGuidesEven ctermbg=darkgrey
+
+" listchar=trail is not as flexible, use the below to highlight trailing
+" whitespace. Don't do it for unite windows or readonly files
+highlight ExtraWhitespace ctermbg=red guibg=red
+match ExtraWhitespace /\s\+$/
+augroup MyAutoCmd
+  autocmd BufWinEnter * if &modifiable && &ft!='unite' | match ExtraWhitespace /\s\+$/ | endif
+  autocmd InsertEnter * if &modifiable && &ft!='unite' | match ExtraWhitespace /\s\+\%#\@<!$/ | endif
+  autocmd InsertLeave * if &modifiable && &ft!='unite' | match ExtraWhitespace /\s\+$/ | endif
+  autocmd BufWinLeave * if &modifiable && &ft!='unite' | call clearmatches() | endif
+augroup END
+
+" highlight current line
+au WinLeave * set nocursorline nocursorcolumn
+au WinEnter * set cursorline cursorcolumn
+set cursorline cursorcolumn
+
+let g:airline_theme = 'powerlineish'
+let g:indentLine_color_term = 239
+
+filetype plugin indent on
+syntax enable
+
+" 256bit terminal
+set t_Co=256
+
+colorscheme rainbow_neon
+" molokai: for 256 colors
+let g:rehash256 = 1
+" Tell Vim to use dark background
+set background=dark
+

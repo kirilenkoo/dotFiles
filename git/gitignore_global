@@ -1,0 +1,9 @@
+*~
+.DS_Store
+
+# Ignore IDEA Projects Files
+.idea/
+
+# Ignore RVM Files
+.ruby-gemset
+.ruby-version
