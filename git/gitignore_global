@@ -7,3 +7,13 @@
 # Ignore RVM Files
 .ruby-gemset
 .ruby-version
+
+# Ignore Stuffs
+.unison/
+database.yml
+doc/
+*.swp
+*~
+.project
+.DS_Store
+.secret

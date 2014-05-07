@@ -40,7 +40,7 @@ ZSH_THEME="eastwood"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(brew, rvm, ruby, gem, git)
+plugins=(rails git ruby rvm gem git github brew bundler pow)   
 
 source $ZSH/oh-my-zsh.sh
 
@@ -68,11 +68,7 @@ fi
 # Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
 
+
 # Add RVM to PATH for scripting
+export PATH="$PATH:$HOME/.rvm/bin" 
 [[ -s $HOME/.rvm/scripts/rvm ]] && source $HOME/.rvm/scripts/rvm
-PATH=$PATH:$HOME/.rvm/bin
-
-# Go proxy
-alias goproxy='export http_proxy=http://127.0.0.1:8087 https_proxy=http://127.0.0.1:8087'
-alias disproxy='unset http_proxy https_proxy'
-
