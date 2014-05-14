@@ -17,3 +17,5 @@ doc/
 .project
 .DS_Store
 .secret
+.ruby-gemset
+.ruby-version
