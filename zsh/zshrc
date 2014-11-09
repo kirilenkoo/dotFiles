@@ -44,9 +44,6 @@ plugins=(rails git ruby rvm gem git github brew bundler pow)
 
 source $ZSH/oh-my-zsh.sh
 
-# Customize to your needs...
-source /usr/local/share/python/virtualenvwrapper.sh
-
 # setting virtualenv workpath.
 export WORKON_HOME=$HOME/.virtualenvs
 
@@ -72,3 +69,7 @@ export PATH="/usr/local/heroku/bin:$PATH"
 # Add RVM to PATH for scripting
 export PATH="$PATH:$HOME/.rvm/bin" 
 [[ -s $HOME/.rvm/scripts/rvm ]] && source $HOME/.rvm/scripts/rvm
+
+# This loads nvm
+export NVM_DIR="/Users/fermion42/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
