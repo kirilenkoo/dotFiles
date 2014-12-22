@@ -57,14 +57,13 @@ export PIP_VIRTUALENV_BASE=$WORKON_HOME
 export PIP_RESPECT_VIRTUALENV=true
 
 if [[ -r /usr/local/bin/virtualenvwrapper.sh ]]; then
-    source /usr/local/bin/virtualenvwrapper.sh
+source /usr/local/bin/virtualenvwrapper.sh
 else
-    echo "WARNING: Can't find virtualenvwrapper.sh"
+echo "WARNING: Can't find virtualenvwrapper.sh"
 fi
 
 # Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
-
 
 # Add RVM to PATH for scripting
 export PATH="$PATH:$HOME/.rvm/bin" 
@@ -73,3 +72,6 @@ export PATH="$PATH:$HOME/.rvm/bin"
 # This loads nvm
 export NVM_DIR="/Users/fermion42/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+
+# Add the GOROOT-based install location to PATH
+export PATH=$PATH:/usr/local/opt/go/libexec/bin

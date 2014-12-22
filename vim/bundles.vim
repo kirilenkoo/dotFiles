@@ -1,12 +1,18 @@
-if has('vim_starting')
-  set nocompatible               " Be iMproved
+" Note: Skip initialization for vim-tiny or vim-small.
+if !1 | finish | endif
 
-  " Required:
-  set runtimepath+=/Users/Gulakya/.vim/bundle/neobundle.vim/
+if has('vim_starting')
+	if &compatible
+		set nocompatible               " Be iMproved
+	endif
+
+	" Required:
+	set runtimepath+=~/.vim/bundle/neobundle.vim/
 endif
 
+
 " Required:
-call neobundle#begin(expand('/Users/Gulakya/.vim/bundle'))
+call neobundle#begin(expand('~/.vim/bundle'))
 
 " Let NeoBundle manage NeoBundle
 " Required:
@@ -25,6 +31,7 @@ NeoBundle 'Shougo/vimproc', { 'build': {
 NeoBundle 'bling/vim-airline'  " --- powerline
 NeoBundle 'flazz/vim-colorschemes' " --- many color schemes
 NeoBundle 'Shougo/vimshell.vim' " --- a nice shell implemented by vimscript
+NeoBundle 'tpope/vim-fugitive' " --- a Git wrapper so awesome, it should be illegal 
 
 " Required:
 call neobundle#end()
