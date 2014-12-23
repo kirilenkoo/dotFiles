@@ -1,8 +1,17 @@
+" Cross-platform Vim Configuration goes in this file
+"
+" Contents
+" Main configuration
+" Visual Configuration
+" Shortcut Key Configuration
+" Plugin Configuration
+" Private Configuration
+
 " ----------- Main Configuration ----------------------------------
 set nocompatible                         "don't need to keep compatibility with Vi
 filetype plugin indent on                "enable detection, plugins and indenting in one step
 syntax on                                "Turn on syntax highlighting
-"set ruler                                "Turn on the ruler
+set ruler                                "Turn on the ruler
 set number                               "Show line numbers
 set cursorline                           "underline the current line in the file
 set cursorcolumn                         "highlight the current column. Visible in GUI mode only.
@@ -27,7 +36,7 @@ set softtabstop=2                        "number of spaces to skip or insert whe
 set expandtab                            "spaces instead of tabs for better cross-editor compatibility
 set smarttab                             "use shiftwidth and softtabstop to insert or delete (on <BS>) blanks
 set shiftround                           "when at 3 spaces, and I hit > ... go to 4, not 5
-set nowrap                               "no wrapping
+"set nowrap                               "no wrapping
 
 set backspace=indent,eol,start           "allow backspacing over everything in insert mode
 set cindent                              "recommended seting for automatic C-style indentation
@@ -92,6 +101,8 @@ endif
 
 " Use the same symbols as TextMate for tabstops and EOLs
 set listchars=tab:▸\ ,eol:¬
+
+autocmd BufEnter * if expand("%:p:h") !~ '^/tmp' | silent! lcd %:p:h | endif
 
 " ----------- Shortcut Key Configuration ----------------------------------
 let mapleader = ","                      "remap leader to ',' which is much easier than '\'
@@ -197,3 +208,7 @@ nnoremap <F6> :call NumberToggle()<cr>
 
 " Spell check toggle
 map <leader>sp :setlocal spell! spelllang=en_us<CR>
+
+
+" ----------- Plugin Configuration ----------------------------------
+
