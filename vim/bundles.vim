@@ -32,6 +32,7 @@ NeoBundle 'bling/vim-airline'  " --- powerline
 NeoBundle 'flazz/vim-colorschemes' " --- many color schemes
 NeoBundle 'Shougo/vimshell.vim' " --- a nice shell implemented by vimscript
 NeoBundle 'tpope/vim-fugitive' " --- a Git wrapper so awesome, it should be illegal 
+NeoBundle 'tangledhelix/vim-octopress' " --- adds syntax highlighting and Octopress commands to Vim. 
 
 " Required:
 call neobundle#end()
