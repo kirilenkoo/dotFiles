@@ -7,4 +7,3 @@ endif
 
 source $VIMHOME/bundles.vim
 source $VIMHOME/main.vim
-

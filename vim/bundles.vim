@@ -28,11 +28,18 @@ NeoBundle 'Shougo/vimproc', { 'build': {
       \ } }
 
 " My bundles here
-NeoBundle 'bling/vim-airline'  " --- powerline
-NeoBundle 'flazz/vim-colorschemes' " --- many color schemes
-NeoBundle 'Shougo/vimshell.vim' " --- a nice shell implemented by vimscript
-NeoBundle 'tpope/vim-fugitive' " --- a Git wrapper so awesome, it should be illegal 
-NeoBundle 'tangledhelix/vim-octopress' " --- adds syntax highlighting and Octopress commands to Vim. 
+NeoBundle 'bling/vim-airline'
+NeoBundle 'flazz/vim-colorschemes'
+NeoBundle 'Shougo/vimshell.vim'
+NeoBundle 'tpope/vim-fugitive'
+NeoBundle 'tangledhelix/vim-octopress'
+NeoBundle 'amix/vim-zenroom2'
+NeoBundle 'junegunn/goyo.vim'
+NeoBundle 'Shougo/neocomplete.vim'
+NeoBundle 'vim-scripts/netrw.vim'
+NeoBundle 'fatih/vim-go'
+NeoBundle 'majutsushi/tagbar'
+NeoBundle 'jstemmer/gotags'
 
 " Required:
 call neobundle#end()

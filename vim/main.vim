@@ -25,6 +25,7 @@ set foldenable                           "enable folding
 set showmatch                            "set show matching parenthesis
 set noexrc                               "don't use the local config
 "set virtualedit=all                      "allow the cursor to go in to "invalid" places
+set shell=zsh\ -i
 
 set incsearch                            "find the next match as we type the search
 set hlsearch                             "hilight searches by default
@@ -108,22 +109,12 @@ autocmd BufEnter * if expand("%:p:h") !~ '^/tmp' | silent! lcd %:p:h | endif
 let mapleader = ","                      "remap leader to ',' which is much easier than '\'
 
 "Switch to previous file with ',spacebar'
-nmap <leader><SPACE> <C-^> 
-
-" Open Taglist with [,s]
-map <Leader>s :TlistToggle<CR>
-
+nmap <leader><SPACE> <C-^>
 " Use leader x to remove the current line but not erase buffer
 map <Leader>x "_dd
 
 " Use leader l to rapidly toggle `set list`
 nmap <leader>l :set list!<CR>
-
-" Exit insert mode with jk                                                              
-imap jk <Esc>
-
-" reload configuration file
-map <Leader>r :so $MYVIMRC<CR>  
 
 " Exit insert mode and save with jj
 imap jj <Esc>:w<CR>
@@ -211,4 +202,72 @@ map <leader>sp :setlocal spell! spelllang=en_us<CR>
 
 
 " ----------- Plugin Configuration ----------------------------------
+ " Disable AutoComplPop.
+ let g:acp_enableAtStartup = 0
+ " Use neocomplete.
+ let g:neocomplete#enable_at_startup = 1
+ " Use smartcase.
+ let g:neocomplete#enable_smart_case = 1
+ " Set minimum syntax keyword length.
+ let g:neocomplete#sources#syntax#min_keyword_length = 3
 
+ let $GOPATH="/Users/fermion42/.go"
+
+  " Plugin key-mappings.
+ inoremap <expr><C-g>     neocomplete#undo_completion()
+ inoremap <expr><C-l>     neocomplete#complete_common_string()
+
+  " Recommended key-mappings.
+ " <CR>: close popup and save indent.
+ inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+ function! s:my_cr_function()
+     return neocomplete#close_popup() . "\<CR>"
+ endfunction
+ " <TAB>: completion.
+ inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+ " <C-h>, <BS>: close popup and delete backword char.
+ inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+ inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+ inoremap <expr><C-y>  neocomplete#close_popup()
+ inoremap <expr><C-e>  neocomplete#cancel_popup()
+
+ " Go related mappings
+ au FileType go nmap <Leader>i <Plug>(go-info)
+ au FileType go nmap <Leader>gd <Plug>(go-doc)
+ au FileType go nmap <Leader>r <Plug>(go-run)
+ au FileType go nmap <Leader>b <Plug>(go-build)
+ au FileType go nmap <Leader>t <Plug>(go-test)
+ au FileType go nmap gd <Plug>(go-def-tab)
+
+ " Netrw Style Listing
+ let g:netrw_liststyle = 3
+
+ let g:tagbar_type_go = {
+    \ 'ctagstype' : 'go',
+    \ 'kinds'     : [
+        \ 'p:package',
+        \ 'i:imports:1',
+        \ 'c:constants',
+        \ 'v:variables',
+        \ 't:types',
+        \ 'n:interfaces',
+        \ 'w:fields',
+        \ 'e:embedded',
+        \ 'm:methods',
+        \ 'r:constructor',
+        \ 'f:functions'
+    \ ],
+    \ 'sro' : '.',
+    \ 'kind2scope' : {
+        \ 't' : 'ctype',
+        \ 'n' : 'ntype'
+    \ },
+    \ 'scope2kind' : {
+        \ 'ctype' : 't',
+        \ 'ntype' : 'n'
+    \ },
+    \ 'ctagsbin'  : 'gotags',
+    \ 'ctagsargs' : '-sort -silent'
+\ }
+
+nmap <Leader><Leader> :TagbarToggle<CR>
