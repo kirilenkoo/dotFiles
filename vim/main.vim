@@ -24,8 +24,8 @@ set showmode                             "show current mode down the bottom
 set foldenable                           "enable folding
 set showmatch                            "set show matching parenthesis
 set noexrc                               "don't use the local config
-"set virtualedit=all                      "allow the cursor to go in to "invalid" places
-set shell=zsh\ -i
+"set virtualedit=all                     "allow the cursor to go in to 'invalid' places
+set shell=zsh
 
 set incsearch                            "find the next match as we type the search
 set hlsearch                             "hilight searches by default
@@ -48,7 +48,7 @@ set noerrorbells                         "don't make noise
 set wildmenu                             "make tab completion act more like bash
 set wildmode=list:longest                "tab complete to longest common string, like bash
 
-"set mouse-=a                             "disable mouse automatically entering visual mode
+"set mouse-=a                            "disable mouse automatically entering visual mode
 set mouse=a                              "enable mouse automatically entering visual mode
 set hidden                               "allow hiding buffers with unsaved changes
 set cmdheight=2                          "make the command line a little taller to hide 'press enter to viem more' text
@@ -56,19 +56,19 @@ set cmdheight=2                          "make the command line a little taller 
 set clipboard=unnamed                    "Use system clipboard by default
 
 set splitright                           "splits open on the right.
-set splitbelow       
+set splitbelow
 
 " Set up the backup directories to a central place.
-set backupdir=$HOME/.vim/backup//        
+set backupdir=$HOME/.vim/backup//
 set directory=$HOME/.vim/backup//
 
 " ----------- Visual Configuration ----------------------------------
-colorscheme rainbow_neon
+colorscheme dracula
 set t_Co=256
 
 " set up gui font
 if has("gui_running")
-  set guifont=Source\ Code\ Pro\ for\ Powerline:h15 
+  set guifont=Monaco:h15
 endif
 
 " set up status bar
@@ -167,11 +167,11 @@ inoremap <special> <expr> <Esc>[200~ XTermPasteBegin()
 
 
 " Navigate tabs
-map <F3> :tabp<CR>                       
+map <F3> :tabp<CR>
 map <F4> :tabn<CR>
 
 " Turn text search highlight on/off with F5 key
-map <F5> :set hls!<bar>set hls?<CR> 
+map <F5> :set hls!<bar>set hls?<CR>
 
 " double percentage sign in command mode is expanded
 " to directory of current file - http://vimcasts.org/e/14
@@ -202,72 +202,72 @@ map <leader>sp :setlocal spell! spelllang=en_us<CR>
 
 
 " ----------- Plugin Configuration ----------------------------------
- " Disable AutoComplPop.
- let g:acp_enableAtStartup = 0
- " Use neocomplete.
- let g:neocomplete#enable_at_startup = 1
- " Use smartcase.
- let g:neocomplete#enable_smart_case = 1
- " Set minimum syntax keyword length.
- let g:neocomplete#sources#syntax#min_keyword_length = 3
+" Disable AutoComplPop.
+let g:acp_enableAtStartup = 0
+" Use neocomplete.
+let g:neocomplete#enable_at_startup = 1
+" Use smartcase.
+let g:neocomplete#enable_smart_case = 1
+" Set minimum syntax keyword length.
+let g:neocomplete#sources#syntax#min_keyword_length = 3
 
- let $GOPATH="/Users/fermion42/.go"
+let $GOPATH="/Users/fermion42/.go"
 
-  " Plugin key-mappings.
- inoremap <expr><C-g>     neocomplete#undo_completion()
- inoremap <expr><C-l>     neocomplete#complete_common_string()
+" Plugin key-mappings.
+inoremap <expr><C-g>     neocomplete#undo_completion()
+inoremap <expr><C-l>     neocomplete#complete_common_string()
 
-  " Recommended key-mappings.
- " <CR>: close popup and save indent.
- inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
- function! s:my_cr_function()
-     return neocomplete#close_popup() . "\<CR>"
- endfunction
- " <TAB>: completion.
- inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
- " <C-h>, <BS>: close popup and delete backword char.
- inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
- inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
- inoremap <expr><C-y>  neocomplete#close_popup()
- inoremap <expr><C-e>  neocomplete#cancel_popup()
+" Recommended key-mappings.
+" <CR>: close popup and save indent.
+inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+function! s:my_cr_function()
+  return neocomplete#close_popup() . "\<CR>"
+endfunction
+" <TAB>: completion.
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+" <C-h>, <BS>: close popup and delete backword char.
+inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+inoremap <expr><C-y>  neocomplete#close_popup()
+inoremap <expr><C-e>  neocomplete#cancel_popup()
 
- " Go related mappings
- au FileType go nmap <Leader>i <Plug>(go-info)
- au FileType go nmap <Leader>gd <Plug>(go-doc)
- au FileType go nmap <Leader>r <Plug>(go-run)
- au FileType go nmap <Leader>b <Plug>(go-build)
- au FileType go nmap <Leader>t <Plug>(go-test)
- au FileType go nmap gd <Plug>(go-def-tab)
+" Go related mappings
+au FileType go nmap <Leader>i <Plug>(go-info)
+au FileType go nmap <Leader>gd <Plug>(go-doc)
+au FileType go nmap <Leader>r <Plug>(go-run)
+au FileType go nmap <Leader>b <Plug>(go-build)
+au FileType go nmap <Leader>t <Plug>(go-test)
+au FileType go nmap gd <Plug>(go-def-tab)
 
- " Netrw Style Listing
- let g:netrw_liststyle = 3
+" Netrw Style Listing
+let g:netrw_liststyle = 3
 
- let g:tagbar_type_go = {
-    \ 'ctagstype' : 'go',
-    \ 'kinds'     : [
-        \ 'p:package',
-        \ 'i:imports:1',
-        \ 'c:constants',
-        \ 'v:variables',
-        \ 't:types',
-        \ 'n:interfaces',
-        \ 'w:fields',
-        \ 'e:embedded',
-        \ 'm:methods',
-        \ 'r:constructor',
-        \ 'f:functions'
-    \ ],
-    \ 'sro' : '.',
-    \ 'kind2scope' : {
-        \ 't' : 'ctype',
-        \ 'n' : 'ntype'
-    \ },
-    \ 'scope2kind' : {
-        \ 'ctype' : 't',
-        \ 'ntype' : 'n'
-    \ },
-    \ 'ctagsbin'  : 'gotags',
-    \ 'ctagsargs' : '-sort -silent'
-\ }
+let g:tagbar_type_go = {
+      \ 'ctagstype' : 'go',
+      \ 'kinds'     : [
+      \ 'p:package',
+      \ 'i:imports:1',
+      \ 'c:constants',
+      \ 'v:variables',
+      \ 't:types',
+      \ 'n:interfaces',
+      \ 'w:fields',
+      \ 'e:embedded',
+      \ 'm:methods',
+      \ 'r:constructor',
+      \ 'f:functions'
+      \ ],
+      \ 'sro' : '.',
+      \ 'kind2scope' : {
+      \ 't' : 'ctype',
+      \ 'n' : 'ntype'
+      \ },
+      \ 'scope2kind' : {
+      \ 'ctype' : 't',
+      \ 'ntype' : 'n'
+      \ },
+      \ 'ctagsbin'  : 'gotags',
+      \ 'ctagsargs' : '-sort -silent'
+      \ }
 
 nmap <Leader><Leader> :TagbarToggle<CR>

@@ -29,7 +29,6 @@ NeoBundle 'Shougo/vimproc', { 'build': {
 
 " My bundles here
 NeoBundle 'bling/vim-airline'
-NeoBundle 'flazz/vim-colorschemes'
 NeoBundle 'Shougo/vimshell.vim'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'tangledhelix/vim-octopress'
@@ -40,6 +39,7 @@ NeoBundle 'vim-scripts/netrw.vim'
 NeoBundle 'fatih/vim-go'
 NeoBundle 'majutsushi/tagbar'
 NeoBundle 'jstemmer/gotags'
+NeoBundle 'zenorocha/dracula-theme', {'rtp': 'vim/'}
 
 " Required:
 call neobundle#end()
