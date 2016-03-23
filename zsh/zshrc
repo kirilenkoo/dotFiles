@@ -19,8 +19,8 @@ EOBUNDLES
  
 # 
 # Load the theme.
-antigen theme jreese
-# XsErG/zsh-themes themes/lazyuser
+# antigen theme jreese
+antigen theme fino-time
 
 # Tell antigen that you're done.
 antigen apply
@@ -43,9 +43,10 @@ antigen apply
 #echo "WARNING: Can't find virtualenvwrapper.sh"
 #fi
 
-# Add RVM to PATH for scripting
-# export PATH= [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
-
 # This loads nvm
 export NVM_DIR=~/.nvm
 source $(brew --prefix nvm)/nvm.sh
+
+# This loads rvm
+export PATH="$PATH:$HOME/.rvm/bin" 
+[[ -s $HOME/.rvm/scripts/rvm ]] && source $HOME/.rvm/scripts/rvm
