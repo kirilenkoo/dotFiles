@@ -68,7 +68,7 @@ set t_Co=256
 
 " set up gui font
 if has("gui_running")
-  set guifont=Monaco:h15
+  set guifont=Hack:h15
 endif
 
 " set up status bar
