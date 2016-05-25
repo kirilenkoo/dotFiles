@@ -5,18 +5,18 @@ antigen use oh-my-zsh
 
 # Bundles from the default repo (robbyrussell's oh-my-zsh).
 antigen bundles <<EOBUNDLES
-  git
-  nvm
-  command-not-found
+git
+nvm
+command-not-found
 EOBUNDLES
- 
+
 # # Bundles from the github.
 antigen bundles <<EOBUNDLES
-  zsh-users/zsh-completions
-  zsh-users/zsh-syntax-highlighting
-  felixr/docker-zsh-completion
+zsh-users/zsh-completions
+zsh-users/zsh-syntax-highlighting
+felixr/docker-zsh-completion
 EOBUNDLES
- 
+
 # 
 # Load the theme.
 # antigen theme jreese
